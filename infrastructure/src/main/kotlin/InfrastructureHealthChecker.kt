@@ -11,6 +11,7 @@ class InfrastructureHealthChecker(
     private val flyway: Flyway,
     private val prometheusRegistry: PrometheusMeterRegistry
 ) {
+    //comentario para commitar
     fun checkAll() {
         // Jackson
         val mapper = jacksonObjectMapper()
