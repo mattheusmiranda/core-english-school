@@ -1,0 +1,13 @@
+-- iniciar container
+cd docker
+docker-compose up -d
+
+-- entrar no container
+docker exec -it my-mysql bash
+mysql -u root -p
+root
+use core_english_school;
+
+-- matar container
+docker stop my-mysql
+docker rm my-mysql
