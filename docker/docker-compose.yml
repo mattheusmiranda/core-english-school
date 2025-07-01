@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.22
+    container_name: my-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: user_core_english_school
+      MYSQL_PASSWORD: core_english_schoolPW
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: core_english_school

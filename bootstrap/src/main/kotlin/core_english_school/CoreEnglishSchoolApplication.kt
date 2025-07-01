@@ -1,4 +1,4 @@
-package com.school.core_english_school
+package core_english_school
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
