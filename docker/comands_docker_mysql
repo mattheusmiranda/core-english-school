@@ -7,6 +7,7 @@ docker exec -it my-mysql bash
 mysql -u root -p
 root
 use core_english_school;
+show tables;
 
 -- matar container
 docker stop my-mysql
