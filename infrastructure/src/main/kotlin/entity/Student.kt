@@ -20,8 +20,8 @@ data class Student(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column("updated_at")
-    val updatedAt: LocalDateTime = LocalDateTime.now()
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    /*@OneToMany(mappedBy = "student", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val studentCourses: List<StudentCourse> = emptyList(),*/
+    @OneToMany(mappedBy = "student", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val studentCourses: List<StudentCourse> = emptyList(),
 )

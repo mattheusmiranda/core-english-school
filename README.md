@@ -29,11 +29,15 @@ finance-app/
 ├── infrastructure/
 │   ├── build.gradle.kts
 │   ├── src/main/kotlin/com/seuapp/infrastructure/
-│   └── (repositórios, adaptação de tecnologia, Kafka, banco de dados)
+│   └── (repositórios, adaptação de tecnologia, banco de dados)
 └── bootstrap/
+│    ├── build.gradle.kts
+│    ├── src/main/kotlin/com/seuapp/bootstrap/
+│    └── (configuração Spring Boot)
+└── entrypoint/
     ├── build.gradle.kts
-    ├── src/main/kotlin/com/seuapp/bootstrap/
-    └── (configuração Spring Boot)
+    ├── src/main/kotlin/com/seuapp/entrypoint/
+    └── (APIS, Consumidores e Consumidores, avros)
 ```
 
 ## 🔹 Módulos Explicados
