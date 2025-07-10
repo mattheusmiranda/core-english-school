@@ -10,6 +10,10 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":infrastructure"))
+    implementation(project(":entrypoint"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

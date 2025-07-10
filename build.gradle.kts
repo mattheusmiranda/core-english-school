@@ -12,6 +12,7 @@ allprojects {
 
 	repositories {
 		mavenCentral()
+		maven("https://packages.confluent.io/maven/")
 	}
 }
 
@@ -32,4 +33,3 @@ subprojects {
 		mavenCentral()
 	}
 }
-
