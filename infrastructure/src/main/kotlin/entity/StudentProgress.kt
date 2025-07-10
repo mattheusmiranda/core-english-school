@@ -16,18 +16,18 @@ data class StudentProgress(
     val id: StudentProgressId = StudentProgressId(),
 
     @ManyToOne
-    @MapsId("studentId")
-    @JoinColumn("student_id")
+    @MapsId(value = "studentId")
+    @JoinColumn(name = "student_id")
     val student: Student,
 
     @ManyToOne
-    @MapsId("courseId")
-    @JoinColumn("course_id")
+    @MapsId(value = "courseId")
+    @JoinColumn(name = "course_id")
     val course: Course,
 
-    @Column("progress_percent")
+    @Column(name = "progress_percent")
     val progressPercent: Double = 0.0,
 
-    @Column("last_updated")
+    @Column(name = "last_updated")
     val lastUpdated: LocalDateTime = LocalDateTime.now()
 )

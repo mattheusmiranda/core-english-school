@@ -5,9 +5,9 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 data class StudentLessonProgressId(
-    @Column("student_id")
+    @Column(name = "student_id")
     val studentId: Int = 0,
 
-    @Column("lesson_id")
+    @Column(name = "lesson_id")
     val lessonId: Int = 0
 ) : java.io.Serializable

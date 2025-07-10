@@ -16,15 +16,15 @@ data class StudentLessonProgress(
     val id: StudentLessonProgressId = StudentLessonProgressId(),
 
     @ManyToOne
-    @MapsId("studentId")
+    @MapsId(value = "studentId")
     @JoinColumn(name = "student_id")
     val student: Student,
 
     @ManyToOne
-    @MapsId("lessonId")
+    @MapsId(value = "lessonId")
     @JoinColumn(name = "lesson_id")
     val lesson: Lesson,
 
-    @Column("completed_at")
+    @Column(name = "completed_at")
     val completedAt: LocalDateTime? = null
 )

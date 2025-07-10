@@ -16,18 +16,18 @@ data class StudentCourse(
     val id: StudentCourseId = StudentCourseId(),
 
     @ManyToOne
-    @MapsId("studentId")
+    @MapsId(value = "studentId")
     @JoinColumn(name = "student_id")
     val student: Student,
 
     @ManyToOne
-    @MapsId("courseId")
+    @MapsId(value = "courseId")
     @JoinColumn(name = "course_id")
     val course: Course,
 
-    @Column("enrolled_at")
+    @Column(name = "enrolled_at")
     val enrolledAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column("status")
+    @Column(name = "status")
     val status: String? = null
 )

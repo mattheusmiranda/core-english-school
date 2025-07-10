@@ -10,18 +10,15 @@ data class Student(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = 0,
 
-    @Column("name")
+    @Column(name = "name")
     val name: String,
 
-    @Column("email")
+    @Column(name = "email")
     val email: String,
 
-    @Column("created_at")
+    @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column("updated_at")
+    @Column(name = "updated_at")
     val updatedAt: LocalDateTime = LocalDateTime.now(),
-
-    @OneToMany(mappedBy = "student", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val studentCourses: List<StudentCourse> = emptyList(),
 )
