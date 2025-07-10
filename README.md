@@ -1,119 +1,100 @@
 # Core English School
-
 ## 📌 Visão Geral
-Este projeto segue a **arquitetura hexagonal** para organizar as responsabilidades de forma modular e desacoplada. O objetivo é construir uma aplicação financeira que utiliza **Kotlin** e **Spring Boot** para gerenciar eventos financeiros com Kafka, métricas de observabilidade e um banco de dados em memória para desenvolvimento.
+Projeto estruturado em **arquitetura hexagonal multi-módulo** com Kotlin e Spring Boot, focado em modularidade, desacoplamento e facilidade de manutenção. A aplicação interage via Kafka e API's, oferece observabilidade com métricas e usa o banco MySql para desenvolvimento e H2 para armazenamento em memória, utilizado em testes integrados.
+
+---
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Linguagem:** Kotlin (JDK 21)
-- **Framework:** Spring Boot 3.4.5
-- **Build System:** Gradle (Kotlin DSL)
-- **Banco de Dados:** H2 (com migrations via Flyway)
-- **Mensageria:** Apache Kafka
-- **Observabilidade:** Micrometer + Prometheus + Grafana
-- **Containerização:** Docker
+- Kotlin (JDK 21)
+- Spring Boot 3.5.x
+- Gradle (Kotlin DSL)
+- Banco de dados: MySql e H2 com migrations Flyway
+- Kafka (publicação e consumo)
+- Observabilidade: Micrometer, Prometheus, Grafana
+- Docker para containerização e Kafka local
+
+---
 
 ## 📂 Estrutura do Projeto
 ```
-finance-app/
+core-english-school/
 ├── build.gradle.kts  # Configuração raiz
 ├── settings.gradle.kts  # Define os submódulos
-├── core/
+├── core/ # Domínio puro: entidades, portas (interfaces), regras de negócio
 │   ├── build.gradle.kts
-│   ├── src/main/kotlin/com/seuapp/core/
+│   ├── src/main/kotlin/com/school/core/
 │   └── (entidades, regras de negócio, portas)
-├── application/
+├── infrastructure/ # Implementações técnicas: repositórios, JPA, Kafka, adaptadores
 │   ├── build.gradle.kts
-│   ├── src/main/kotlin/com/seuapp/application/
-│   └── (casos de uso, serviços)
-├── infrastructure/
-│   ├── build.gradle.kts
-│   ├── src/main/kotlin/com/seuapp/infrastructure/
+│   ├── src/main/kotlin/com/school/infrastructure/
 │   └── (repositórios, adaptação de tecnologia, banco de dados)
-└── bootstrap/
+└──  entrypoint/ # APIs REST, modelos de requisição/resposta, mapeadores, controllers
 │    ├── build.gradle.kts
-│    ├── src/main/kotlin/com/seuapp/bootstrap/
-│    └── (configuração Spring Boot)
-└── entrypoint/
-    ├── build.gradle.kts
-    ├── src/main/kotlin/com/seuapp/entrypoint/
-    └── (APIS, Consumidores e Consumidores, avros)
+│    ├── src/main/kotlin/com/school/entrypoint/
+│    └── (APIS, Consumidores e Consumidores, avros)
+└── bootstrap/ # Classe principal SpringBoot, configuração de escaneamento e beans
+     ├── build.gradle.kts
+     └── src/main/kotlin/com/school/bootstrap/
 ```
-
-## 🔹 Módulos Explicados
-
-### 1️⃣ **Core** (`core/`)
-Este módulo contém:
-- **Entidades:** Modelos do domínio financeiro.
-- **Regras de negócio:** Lógica central sem dependências externas.
-- **Portas (Interfaces):** Definem contratos para os adaptadores externos.
-
-⚠️ **Não contém dependências do Spring!**
-
 ---
+## 🔹 Descrição dos Módulos
 
-### 2️⃣ **Application** (`application/`)
-Este módulo implementa os **casos de uso** da aplicação e gerencia:
-- **Serviços:** Executam a lógica do negócio.
-- **Interação com as portas:** Comunicação com o `core/`.
+### 1️⃣ Core (`core/`)
+- Contém **modelos de domínio** e **interfaces (ports)** que definem contratos para adaptadores.
+- Não depende de frameworks ou bibliotecas externas, garantindo pureza do domínio.
 
-Este módulo depende do `core/`, mas **não depende de infraestrutura**.
+### 2️⃣ Infrastructure (`infrastructure/`)
+- Implementa os **adapters técnicos** (e.g., `JpaRepository`, mapeadores, Kafka producers/consumers).
+- Anotações Spring (`@Repository`, `@Service`) e configurações específicas de banco e mensageria.
+- Depende do `core` para usar os contratos e modelos.
 
----
+### 3️⃣ Entrypoint (`entrypoint/`)
+- Disponibiliza as APIs REST (`@RestController`), modelos de entrada/saída, validações e mapeamentos.
+- Responsável pela camada de interface com o usuário ou clientes externos.
+- Depende do `core` e do `infrastructure` para interagir com a lógica e persistência.
 
-### 3️⃣ **Infrastructure** (`infrastructure/`)
-Este módulo contém as implementações técnicas, como:
-- **Repositórios:** Implementações das portas definidas no `core/`.
-- **Integração com Kafka:** Publicação e consumo de eventos.
-- **Configuração do banco de dados (H2 + Flyway)**.
-
-Este módulo **depende do `application/`**.
-
----
-
-### 4️⃣ **Bootstrap** (`bootstrap/`)
-Este é o **ponto de entrada da aplicação**, contendo:
-- **Classe principal do Spring Boot** (`@SpringBootApplication`).
-- **Configuração de Beans globais**.
-- **Dependência apenas do `infrastructure/`**.
-
-⚠️ **Nenhum outro módulo pode depender de `bootstrap/`!**
+### 4️⃣ Bootstrap (`bootstrap/`)
+- Ponto de entrada da aplicação, com a classe `@SpringBootApplication`.
+- Configura o scan base de pacotes (`scanBasePackages`), habilita `@EnableJpaRepositories` e `@EntityScan`.
+- Deve depender dos demais módulos para inicializar toda a aplicação corretamente.
+- Nenhum outro módulo deve depender do `bootstrap`.
 
 ---
 
 ## 🛠️ Como Rodar o Projeto
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/seu-usuario/finance-app.git
-   cd finance-app
+   git clone git@github.com:mattheusmiranda/core-english-school.git
+   cd core-english-school
    ```
 2. Compile e construa o projeto:
    ```sh
    ./gradlew build
    ```
-3. Execute o projeto via Spring Boot:
+3. Suba os containers do docker:
+   ```sh
+    cd docker
+    docker-compose up -d
+   ```
+4. Execute o projeto via Spring Boot:
    ```sh
    ./gradlew :bootstrap:bootRun
    ```
+Obs: Caso hajá alguma duvida sobre comandos do docker, na pasta docker#comands tem alguns comandos utilizados durante o desenvolvimento que podem ser úteis.
 
 ---
 
 ## 📊 Observabilidade
-O projeto coleta métricas usando **Micrometer** e expõe no **Prometheus**:
-- Acesse `http://localhost:8080/actuator/prometheus` para visualizar métricas.
-- O **Grafana** pode ser usado para monitoramento em tempo real.
+- Métricas expostas via Micrometer no endpoint `/actuator/prometheus`.
+- Visualização recomendada com Prometheus e Grafana para monitoramento.
 
----
+## 📩 Mensageria Kafka
+- Utilize `docker-compose` para levantar Kafka e Zookeeper localmente.
+- Eventos são publicados e consumidos via tópicos configurados no módulo `infrastructure`.
 
-## 📩 Mensageria com Kafka
-Para rodar o Kafka via Docker, use:
-```sh
-docker-compose up -d kafka zookeeper
-```
-O projeto publicará e consumirá eventos dos tópicos configurados.
-
----
-
-## 🎯 Conclusão
-Esta estrutura modular permite **baixo acoplamento**, facilitando manutenção e escalabilidade. A arquitetura hexagonal garante que a lógica do domínio seja protegida e que tecnologias externas sejam adaptáveis. 🚀
-
+## 🎯 Benefícios da Arquitetura Hexagonal
+- **Baixo acoplamento** entre domínio e infraestrutura.
+- Facilita testes, manutenção e evolução independente das tecnologias.
+- Protege regras de negócio contra mudanças externas.
+- Modularização clara ajuda na escalabilidade do projeto.

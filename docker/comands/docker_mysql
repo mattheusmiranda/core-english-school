@@ -1,4 +1,4 @@
--- iniciar container
+-- iniciar containers
 cd docker
 docker-compose up -d
 
@@ -9,6 +9,6 @@ root
 use core_english_school;
 show tables;
 
--- matar container
+-- matar containers
 docker stop my-mysql
 docker rm my-mysql
