@@ -1,11 +1,11 @@
 package com.school.responseModel
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 data class StudentResponse(
     val id: Int = 0,
     val name: String,
     val email: String,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDate = LocalDate.now(),
+    val updatedAt: LocalDate = LocalDate.now()
 )
