@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import com.school.requestModel.CreateStudentRequest
 import com.school.responseModel.StudentResponse
 import com.school.usecase.StudentService
+import jakarta.validation.Valid
 
 @RestController
 @RequestMapping("api/students")
@@ -18,7 +19,7 @@ class StudentController(
 ) {
 
     @PostMapping
-    fun create(@RequestBody request: CreateStudentRequest): ResponseEntity<StudentResponse> {
+    fun create(@RequestBody @Valid request: CreateStudentRequest): ResponseEntity<StudentResponse> {
         val studentDomain = StudentEntryPointMapper.Companion.INSTANCE.toDomain(request)
         val created = studentService.create(studentDomain)
         return ResponseEntity.status(HttpStatus.CREATED)
