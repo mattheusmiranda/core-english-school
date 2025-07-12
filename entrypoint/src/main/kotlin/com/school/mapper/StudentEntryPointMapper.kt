@@ -16,8 +16,8 @@ interface StudentEntryPointMapper {
     }
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDate.now())")
+    @Mapping(target = "updatedAt", expression = "java(java.time.LocalDate.now())")
     fun toDomain(request: CreateStudentRequest): StudentDomain
 
     fun toResponse(domain: StudentDomain): StudentResponse

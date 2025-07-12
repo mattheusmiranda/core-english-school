@@ -1,11 +1,11 @@
 package com.school.domain
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 data class StudentDomain(
     val id: Int = 0,
     val name: String,
     val email: String,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-    val updatedAt: LocalDateTime = LocalDateTime.now()
+    val createdAt: LocalDate = LocalDate.now(),
+    val updatedAt: LocalDate = LocalDate.now()
 )
