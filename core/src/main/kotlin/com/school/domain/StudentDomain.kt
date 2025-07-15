@@ -6,6 +6,6 @@ data class StudentDomain(
     val id: Int = 0,
     val name: String,
     val email: String,
-    val createdAt: LocalDate = LocalDate.now(),
+    val createdAt: LocalDate? = null,
     val updatedAt: LocalDate = LocalDate.now()
 )

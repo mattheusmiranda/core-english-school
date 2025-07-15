@@ -1,13 +1,14 @@
-package com.school.exception
+package com.school.exceptionHandler
 
+import com.school.controller.StudentController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@RestControllerAdvice
-class GlobalExceptionHandler {
+@ControllerAdvice(assignableTypes = [StudentController::class])
+class StudentExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String>> {
@@ -36,5 +37,26 @@ class GlobalExceptionHandler {
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(ex.message)
     }
-}
 
+    @ExceptionHandler(StudentFindException::class)
+    fun handleStudentFind(ex: StudentFindException): ResponseEntity<Map<String, String>?> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(mapOf("message" to (ex.message ?: "Not found")))
+    }
+
+    @ExceptionHandler(StudentPutException::class)
+    fun handleStudentPutException(ex: StudentPutException): ResponseEntity<Map<String, String>> {
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(mapOf("message" to (ex.message ?: "Error updating student")))
+    }
+
+    @ExceptionHandler(StudentDeleteException::class)
+    fun handleStudentDeleteException(ex: StudentDeleteException): ResponseEntity<Map<String, String>> {
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(mapOf("message" to (ex.message ?: "Error deleting student")))
+    }
+
+}

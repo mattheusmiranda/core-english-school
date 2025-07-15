@@ -1,10 +1,9 @@
-package com.school.requestModel
+package com.school.requestModel.student
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
 
-data class CreateStudentRequest(
+data class StudentPutRequest(
     @field:NotBlank(message = "The name field must be entered.")
     val name: String,
 

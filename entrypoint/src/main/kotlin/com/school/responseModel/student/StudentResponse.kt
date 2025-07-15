@@ -1,4 +1,4 @@
-package com.school.responseModel
+package com.school.responseModel.student
 
 import java.time.LocalDate
 

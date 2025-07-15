@@ -1,6 +1,6 @@
-package com.school.exception
+package com.school.exceptionHandler
 
-class StudentSaveException(
+class StudentDeleteException(
     message: String,
     cause: Throwable? = null
 ) : RuntimeException(message, cause)

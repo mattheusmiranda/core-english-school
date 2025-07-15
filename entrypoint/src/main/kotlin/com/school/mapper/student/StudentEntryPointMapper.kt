@@ -1,11 +1,13 @@
-package com.school.mapper
+package com.school.mapper.student
 
 import com.school.domain.StudentDomain
+import com.school.model.StudentPutRequestModel
+import com.school.requestModel.student.CreateStudentRequest
+import com.school.requestModel.student.StudentPutRequest
+import com.school.responseModel.student.StudentResponse
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.factory.Mappers
-import com.school.requestModel.CreateStudentRequest
-import com.school.responseModel.StudentResponse
 
 @Mapper
 interface StudentEntryPointMapper {
@@ -18,7 +20,15 @@ interface StudentEntryPointMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", expression = "java(java.time.LocalDate.now())")
     @Mapping(target = "updatedAt", expression = "java(java.time.LocalDate.now())")
-    fun toDomain(request: CreateStudentRequest): StudentDomain
+    fun toDomainByCreateRequest(request: CreateStudentRequest): StudentDomain
 
     fun toResponse(domain: StudentDomain): StudentResponse
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    fun toDomainByPutRequest(request: StudentPutRequest): StudentDomain
+
+    fun toStudentPutRequestModel(putRequest: StudentPutRequest): StudentPutRequestModel
+
 }
