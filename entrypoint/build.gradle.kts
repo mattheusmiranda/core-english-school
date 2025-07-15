@@ -23,6 +23,12 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
-    testImplementation(kotlin("test"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+    testImplementation("org.mockito:mockito-core:5.12.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
