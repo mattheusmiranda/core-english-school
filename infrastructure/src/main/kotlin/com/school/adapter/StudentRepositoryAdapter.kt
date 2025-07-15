@@ -63,6 +63,7 @@ class StudentRepositoryAdapter(
         }
     }
 
+    @Transactional
     override fun update(id: Int, putRequestModel: StudentPutRequestModel): StudentDomain {
         return try {
             val studentEntity = studentJpaRepository.findById(id)
@@ -81,6 +82,7 @@ class StudentRepositoryAdapter(
         }
     }
 
+    @Transactional
     override fun delete(id: Int) {
         try {
             val studentEntity = studentJpaRepository.findById(id)
