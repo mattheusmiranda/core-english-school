@@ -31,6 +31,7 @@ class StudentController(
         MDC.put("name", request.name)
         val studentDomain = StudentEntryPointMapper.Companion.INSTANCE.toDomainByCreateRequest(request)
         val created = studentService.create(studentDomain)
+        logger.info("lugar ao sol")
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(StudentEntryPointMapper.Companion.INSTANCE.toResponse(created))
     }
