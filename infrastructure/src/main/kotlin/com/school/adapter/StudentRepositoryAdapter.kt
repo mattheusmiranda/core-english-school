@@ -12,6 +12,8 @@ import com.school.mapper.StudentMapper
 import com.school.model.StudentPutRequestModel
 import org.springframework.stereotype.Repository
 import com.school.port.StudentRepositoryPort
+import org.slf4j.LoggerFactory
+import org.slf4j.MDC
 import org.springframework.dao.DataIntegrityViolationException
 import java.sql.SQLIntegrityConstraintViolationException
 import java.time.LocalDate
@@ -20,10 +22,12 @@ import java.time.LocalDate
 class StudentRepositoryAdapter(
     private val studentJpaRepository: StudentJpaRepository
 ) : StudentRepositoryPort {
-
+    private val logger = LoggerFactory.getLogger(javaClass)
     @Transactional
     override fun save(student: StudentDomain): StudentDomain {
         try {
+            MDC.put("email", student.email)
+            logger.info("Requisição 'hello' recebida.")
             val entity = StudentMapper.INSTANCE.toEntity(student)
             val savedEntity = studentJpaRepository.save(entity)
             return StudentMapper.INSTANCE.toModel(savedEntity)

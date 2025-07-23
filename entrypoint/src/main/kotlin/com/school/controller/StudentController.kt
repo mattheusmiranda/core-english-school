@@ -12,6 +12,8 @@ import com.school.requestModel.student.StudentPutRequest
 import com.school.responseModel.student.StudentResponse
 import com.school.usecase.StudentService
 import jakarta.validation.Valid
+import org.slf4j.LoggerFactory
+import org.slf4j.MDC
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.PutMapping
 class StudentController(
     private val studentService: StudentService
 ) {
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping
     fun create(@RequestBody @Valid request: CreateStudentRequest): ResponseEntity<StudentResponse> {
+        MDC.put("name", request.name)
         val studentDomain = StudentEntryPointMapper.Companion.INSTANCE.toDomainByCreateRequest(request)
         val created = studentService.create(studentDomain)
         return ResponseEntity.status(HttpStatus.CREATED)
