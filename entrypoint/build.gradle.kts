@@ -21,6 +21,7 @@ dependencies {
     implementation("io.confluent:kafka-avro-serializer:7.6.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
     kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.0")

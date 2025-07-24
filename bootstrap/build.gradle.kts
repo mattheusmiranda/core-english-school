@@ -21,7 +21,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.flywaydb:flyway-core:10.13.0")
     implementation("org.flywaydb:flyway-mysql:10.13.0")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.slf4j:slf4j-api")
     runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("io.micrometer:micrometer-tracing-bridge-brave")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
