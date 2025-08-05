@@ -4,7 +4,7 @@ CREATE TABLE students (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP
 );
 
 -- Tabela de cursos
@@ -13,14 +13,14 @@ CREATE TABLE courses (
     title VARCHAR(150) NOT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP
 );
 
 -- Tabela de relação entre aluno e curso
 CREATE TABLE student_courses (
     student_id INT NOT NULL,
     course_id INT NOT NULL,
-    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    enrolled_at TIMESTAMP,
     status VARCHAR(50),
     PRIMARY KEY (student_id, course_id),
     CONSTRAINT fk_student FOREIGN KEY (student_id) REFERENCES students(id),
@@ -35,7 +35,7 @@ CREATE TABLE lessons (
     duration_seconds INT NOT NULL,
     sequence INT NOT NULL,  -- ordem da lição dentro do curso
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
     CONSTRAINT fk_course_lesson FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
@@ -43,6 +43,7 @@ CREATE TABLE lessons (
 CREATE TABLE student_lessons_progress (
     student_id INT NOT NULL,
     lesson_id INT NOT NULL,
+    percentage_of_progress INT,
     completed_at TIMESTAMP NULL,
     PRIMARY KEY (student_id, lesson_id),
     CONSTRAINT fk_student_lesson_progress FOREIGN KEY (student_id) REFERENCES students(id),
@@ -54,7 +55,7 @@ CREATE TABLE student_progress (
     student_id INT NOT NULL,
     course_id INT NOT NULL,
     progress_percent DECIMAL(5,2) DEFAULT 0,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP,
     PRIMARY KEY (student_id, course_id),
     CONSTRAINT fk_student_progress FOREIGN KEY (student_id) REFERENCES students(id),
     CONSTRAINT fk_course_progress FOREIGN KEY (course_id) REFERENCES courses(id)

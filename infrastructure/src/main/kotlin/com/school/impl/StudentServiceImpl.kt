@@ -1,7 +1,7 @@
 package com.school.impl
 
 import com.school.domain.StudentDomain
-import com.school.model.StudentPutRequestModel
+import com.school.domain.StudentPutRequestDomain
 import com.school.port.StudentRepositoryPort
 import com.school.usecase.StudentService
 import org.springframework.stereotype.Service
@@ -19,7 +19,7 @@ class StudentServiceImpl(
         return studentRepositoryPort.getById(id)
     }
 
-    override fun update(id: Int, putRequestModel: StudentPutRequestModel): StudentDomain {
+    override fun update(id: Int, putRequestModel: StudentPutRequestDomain): StudentDomain {
         return studentRepositoryPort.update(id, putRequestModel)
     }
 

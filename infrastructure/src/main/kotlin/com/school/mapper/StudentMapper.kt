@@ -1,8 +1,8 @@
 package com.school.mapper
 
 import com.school.domain.StudentDomain
+import com.school.domain.StudentPutRequestDomain
 import com.school.entity.Student
-import com.school.model.StudentPutRequestModel
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
@@ -24,7 +24,7 @@ interface StudentMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    fun updateEntityFromPutRequest(request: StudentPutRequestModel, @MappingTarget entity: Student): Student
+    fun updateEntityFromPutRequest(request: StudentPutRequestDomain, @MappingTarget entity: Student): Student
 
     /* Exemplos caso precisar ignorar um campo ou há um campo que em um objeto é diferente do outro.
         @Mapping(source = "idStudent", target = "id") // campos equivalentes mas com nomes diferentes

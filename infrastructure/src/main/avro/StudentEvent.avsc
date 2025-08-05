@@ -1,0 +1,19 @@
+{
+  "namespace": "english.school.infrastructure",
+  "type": "record",
+  "name": "StudentEvent",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "grade",
+      "type": "int"
+    }
+  ]
+}

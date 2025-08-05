@@ -1,15 +1,15 @@
 package com.school.adapter
 
 import com.school.domain.StudentDomain
-import com.school.exceptionHandler.StudentDeleteException
-import com.school.exceptionHandler.StudentFindException
-import com.school.exceptionHandler.StudentPutException
-import com.school.exceptionHandler.StudentSaveException
-import com.school.exceptionHandler.UniqueConstraintViolationException
+import com.school.domain.StudentPutRequestDomain
+import com.school.exception.student.StudentDeleteException
+import com.school.exception.student.StudentFindException
+import com.school.exception.student.StudentPutException
+import com.school.exception.student.StudentSaveException
+import com.school.exception.UniqueConstraintViolationException
 import jakarta.transaction.Transactional
 import com.school.jpaRepository.StudentJpaRepository
 import com.school.mapper.StudentMapper
-import com.school.model.StudentPutRequestModel
 import org.springframework.stereotype.Repository
 import com.school.port.StudentRepositoryPort
 import org.slf4j.LoggerFactory
@@ -68,7 +68,7 @@ class StudentRepositoryAdapter(
     }
 
     @Transactional
-    override fun update(id: Int, putRequestModel: StudentPutRequestModel): StudentDomain {
+    override fun update(id: Int, putRequestModel: StudentPutRequestDomain): StudentDomain {
         return try {
             val studentEntity = studentJpaRepository.findById(id)
                 .orElseThrow { StudentFindException("Student with ID $id not found") }

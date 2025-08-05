@@ -21,6 +21,4 @@ data class Student(
 
     @Column(name = "updated_at")
     var updatedAt: LocalDate = LocalDate.now(),
-
-    var optionalField: String?
 )

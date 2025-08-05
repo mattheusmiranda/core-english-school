@@ -15,15 +15,14 @@ data class StudentLessonProgress(
     @EmbeddedId
     val id: StudentLessonProgressId = StudentLessonProgressId(),
 
-    @ManyToOne
-    @MapsId(value = "studentId")
     @JoinColumn(name = "student_id")
-    val student: Student,
+    val studentId: Int,
 
-    @ManyToOne
-    @MapsId(value = "lessonId")
-    @JoinColumn(name = "lesson_id")
-    val lesson: Lesson,
+    @Column(name = "lesson_id")
+    val lessonId: Int,
+
+    @Column(name = "percentage_of_progress")
+    val percentageOfProgress: Int,
 
     @Column(name = "completed_at")
     val completedAt: LocalDateTime? = null
