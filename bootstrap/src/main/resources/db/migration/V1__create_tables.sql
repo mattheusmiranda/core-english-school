@@ -43,6 +43,7 @@ CREATE TABLE lessons (
 CREATE TABLE student_lessons_progress (
     student_id INT NOT NULL,
     lesson_id INT NOT NULL,
+    percentage_of_progress INT,
     completed_at TIMESTAMP NULL,
     PRIMARY KEY (student_id, lesson_id),
     CONSTRAINT fk_student_lesson_progress FOREIGN KEY (student_id) REFERENCES students(id),

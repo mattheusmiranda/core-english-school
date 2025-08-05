@@ -1,4 +1,4 @@
-package com.school.exceptionHandler
+package com.school.exception.student
 
 class StudentPutException (
     message: String,

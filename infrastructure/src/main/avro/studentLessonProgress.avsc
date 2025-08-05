@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "StudentLessonProgressRecord",
+  "namespace": "com.school.avro",
+  "fields": [
+    {
+      "name": "studentRecord",
+      "type": "com.school.avro.StudentRecord"
+    },
+    {
+      "name": "lessonRecord",
+      "type": "com.school.avro.LessonRecord"
+    },
+    {
+      "name": "percentageOfProgress",
+      "type": "int"
+    },
+    {
+      "name": "completedAt",
+      "type": [ "null", { "type": "string", "logicalType": "timestamp-millis" } ],
+      "default": null
+    }
+  ]
+}

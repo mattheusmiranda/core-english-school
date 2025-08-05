@@ -1,13 +1,17 @@
-package com.school.exceptionHandler
+package com.school.exception
 
-import com.school.controller.StudentController
+import com.school.exception.student.StudentDeleteException
+import com.school.exception.student.StudentFindException
+import com.school.exception.student.StudentPutException
+import com.school.exception.student.StudentSaveException
+import com.school.restController.StudentRestController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
-@ControllerAdvice(assignableTypes = [StudentController::class])
+@ControllerAdvice(assignableTypes = [StudentRestController::class])
 class StudentExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)

@@ -1,4 +1,4 @@
-package com.school.controller
+package com.school.restController
 
 import com.school.mapper.student.StudentEntryPointMapper
 import org.springframework.http.HttpStatus
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping
 
 @RestController
 @RequestMapping("api/students")
-class StudentController(
+class StudentRestController(
     private val studentService: StudentService
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -48,7 +48,7 @@ class StudentController(
         @PathVariable id: Int,
         @RequestBody request: StudentPutRequest
     ): ResponseEntity<StudentResponse> {
-        val putRequest = StudentEntryPointMapper.Companion.INSTANCE.toStudentPutRequestModel(request)
+        val putRequest = StudentEntryPointMapper.Companion.INSTANCE.toStudentPutRequestDomain(request)
         val updated = studentService.update(id, putRequest)
         return ResponseEntity.status(HttpStatus.OK)
             .body(StudentEntryPointMapper.INSTANCE.toResponse(updated))
