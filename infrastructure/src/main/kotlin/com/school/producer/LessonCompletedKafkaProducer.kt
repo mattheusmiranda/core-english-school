@@ -1,6 +1,7 @@
 package com.school.producer
 
 import com.school.avro.StudentLessonProgressRecord
+import com.school.config.KafkaTopicsConfig
 import com.school.domain.StudentLessonProgressDomain
 import com.school.mapper.AvroMapper
 import com.school.port.output.LessonCompletedEventPublisher
@@ -12,11 +13,12 @@ import org.springframework.stereotype.Component
 @Component
 class LessonCompletedKafkaProducer(
     private val kafkaTemplate: KafkaTemplate<String, StudentLessonProgressRecord>,
-    private val avroMapper: AvroMapper
+    private val avroMapper: AvroMapper,
+    private val kafkaTopicsConfig: KafkaTopicsConfig
 ) : LessonCompletedEventPublisher {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    private val topic = "lesson_completed"
+    private val topic = kafkaTopicsConfig.lessonCompleted
 
     override fun publish(studentLessonProgressDomain: StudentLessonProgressDomain) {
         try {
