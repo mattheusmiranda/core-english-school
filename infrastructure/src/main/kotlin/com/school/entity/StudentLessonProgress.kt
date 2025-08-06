@@ -3,6 +3,9 @@ package com.school.entity
 import jakarta.persistence.Column
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.MapsId
@@ -10,16 +13,19 @@ import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "student_lessons_progress")
+@Table(name = "student_lesson_progress")
 data class StudentLessonProgress(
-    @EmbeddedId
-    val id: StudentLessonProgressId = StudentLessonProgressId(),
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int = 0,
 
-    @JoinColumn(name = "student_id")
-    val studentId: Int,
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    val student: Student,
 
-    @Column(name = "lesson_id")
-    val lessonId: Int,
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    val lesson: Lesson,
 
     @Column(name = "percentage_of_progress")
     val percentageOfProgress: Int,

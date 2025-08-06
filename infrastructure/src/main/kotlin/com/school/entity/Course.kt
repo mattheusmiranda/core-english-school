@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -22,8 +23,8 @@ data class Course(
     val description: String? = null,
 
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: LocalDate = LocalDate.now(),
 
     @Column(name = "updated_at")
-    val updatedAt: LocalDateTime = LocalDateTime.now()
+    val updatedAt: LocalDate = LocalDate.now()
 )

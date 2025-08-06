@@ -6,14 +6,9 @@ import com.school.entity.Student
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.MappingTarget
-import org.mapstruct.factory.Mappers
 
-@Mapper
+@Mapper(componentModel = "spring")
 interface StudentMapper {
-
-    companion object {
-        val INSTANCE: StudentMapper = Mappers.getMapper(StudentMapper::class.java)
-    }
 
     fun toEntity(model: StudentDomain): Student
 

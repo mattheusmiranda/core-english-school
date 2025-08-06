@@ -20,7 +20,8 @@ import java.time.LocalDate
 
 @Repository
 class StudentRepositoryAdapter(
-    private val studentJpaRepository: StudentJpaRepository
+    private val studentJpaRepository: StudentJpaRepository,
+    private val studentMapper: StudentMapper
 ) : StudentRepositoryPort {
     private val logger = LoggerFactory.getLogger(javaClass)
     @Transactional
@@ -28,9 +29,9 @@ class StudentRepositoryAdapter(
         try {
             MDC.put("email", student.email)
             logger.info("Requisição 'hello' recebida.")
-            val entity = StudentMapper.INSTANCE.toEntity(student)
+            val entity = studentMapper.toEntity(student)
             val savedEntity = studentJpaRepository.save(entity)
-            return StudentMapper.INSTANCE.toModel(savedEntity)
+            return studentMapper.toModel(savedEntity)
         } catch (ex: DataIntegrityViolationException) {
             val sqlEx = ex.rootCause as? SQLIntegrityConstraintViolationException
             val message = sqlEx?.message ?: ""
@@ -58,7 +59,7 @@ class StudentRepositoryAdapter(
     override fun getById(id: Int): StudentDomain {
         try {
             val studentEntity = studentJpaRepository.findById(id)
-            val studentDomain = StudentMapper.INSTANCE.toModel(studentEntity.get())
+            val studentDomain = studentMapper.toModel(studentEntity.get())
             return studentDomain
         } catch (ex: StudentFindException) {
             throw ex
@@ -73,12 +74,12 @@ class StudentRepositoryAdapter(
             val studentEntity = studentJpaRepository.findById(id)
                 .orElseThrow { StudentFindException("Student with ID $id not found") }
 
-            StudentMapper.INSTANCE.updateEntityFromPutRequest(putRequestModel, studentEntity)
+            studentMapper.updateEntityFromPutRequest(putRequestModel, studentEntity)
 
             studentEntity.updatedAt = LocalDate.now()
 
             val saved = studentJpaRepository.save(studentEntity)
-            StudentMapper.INSTANCE.toModel(saved)
+            studentMapper.toModel(saved)
         } catch (ex: StudentFindException) {
             throw ex
         } catch (ex: Exception) {

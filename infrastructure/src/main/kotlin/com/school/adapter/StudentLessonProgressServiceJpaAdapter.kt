@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class StudentLessonProgressServiceJpaAdapter(
-    private val repository: StudentLessonProgressJpaRepository
+    private val repository: StudentLessonProgressJpaRepository,
+    private val studentLessonProgressMapper: StudentLessonProgressMapper
 ) : StudentLessonProgressServiceJpa {
 
     override fun findByStudentIdAndLessonId(studentId: Int, lessonId: Int): StudentLessonProgressDomain {
@@ -18,6 +19,6 @@ class StudentLessonProgressServiceJpaAdapter(
                 StudentLessonProgressNotFoundException("Progress for studentId=$studentId and lessonId=$lessonId not found.")
             }
 
-        return StudentLessonProgressMapper.INSTANCE.toDomain(entity)
+        return studentLessonProgressMapper.toDomain(entity)
     }
 }

@@ -4,6 +4,10 @@
   "namespace": "com.school.avro",
   "fields": [
     {
+      "name": "id",
+      "type": "int"
+    },
+    {
       "name": "studentRecord",
       "type": "com.school.avro.StudentRecord"
     },
@@ -17,8 +21,7 @@
     },
     {
       "name": "completedAt",
-      "type": [ "null", { "type": "string", "logicalType": "timestamp-millis" } ],
-      "default": null
+      "type": { "type": "int", "logicalType": "date" }
     }
   ]
 }
