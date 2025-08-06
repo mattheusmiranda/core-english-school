@@ -7,19 +7,19 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import java.util.HashMap
-import english.school.infrastructure.StudentEvent
 
 @Configuration
 class KafkaProducerConfig {
 
     private fun createConfigProps(): MutableMap<String, Any> {
         val configProps: MutableMap<String, Any> = HashMap()
-        configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] to "localhost:9092"
-        configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] to "io.confluent.kafka.serializers.KafkaAvroSerializer"
-        configProps[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] to "io.confluent.kafka.serializers.KafkaAvroSerializer"
-        configProps["schema.registry.url"] to "http://localhost:8081"
+        configProps[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = "localhost:9092"
+        configProps[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = "io.confluent.kafka.serializers.KafkaAvroSerializer"
+        configProps[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = "io.confluent.kafka.serializers.KafkaAvroSerializer"
+        configProps["schema.registry.url"] = "http://localhost:8081"
         configProps[ProducerConfig.ACKS_CONFIG] = "all"
-        configProps[ProducerConfig.RETRIES_CONFIG] = 0
+        configProps[ProducerConfig.RETRIES_CONFIG] = 3
+
         return configProps
     }
 

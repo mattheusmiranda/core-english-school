@@ -33,19 +33,18 @@ CREATE TABLE lessons (
     course_id INT NOT NULL,
     title VARCHAR(150) NOT NULL,
     duration_seconds INT NOT NULL,
-    sequence INT NOT NULL,  -- ordem da lição dentro do curso
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
     CONSTRAINT fk_course_lesson FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
 -- Tabela para armazenar progresso do aluno em cada lição
-CREATE TABLE student_lessons_progress (
+CREATE TABLE student_lesson_progress (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     student_id INT NOT NULL,
     lesson_id INT NOT NULL,
     percentage_of_progress INT,
     completed_at TIMESTAMP NULL,
-    PRIMARY KEY (student_id, lesson_id),
     CONSTRAINT fk_student_lesson_progress FOREIGN KEY (student_id) REFERENCES students(id),
     CONSTRAINT fk_lesson_progress FOREIGN KEY (lesson_id) REFERENCES lessons(id)
 );

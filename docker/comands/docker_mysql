@@ -12,3 +12,12 @@ show tables;
 -- matar containers
 docker stop my-mysql
 docker rm my-mysql
+
+docker stop kafka
+docker rm kafka
+
+docker stop zookeeper
+docker rm zookeeper
+
+docker stop schema-registry
+docker rm schema-registry
