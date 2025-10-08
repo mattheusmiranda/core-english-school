@@ -2,7 +2,7 @@ pluginManagement {
     repositories {
         gradlePluginPortal() // necessário para plugins do tipo com.github.*
         mavenCentral()
-        maven { url = uri("https://packages.confluent.io/maven/") }
+        maven { url = uri("https://packages.confluent.io/maven") }
     }
 }
 
