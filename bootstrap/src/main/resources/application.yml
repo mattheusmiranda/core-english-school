@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/core_english_sch ool
+    url: jdbc:mysql://localhost:3308/core_english_school
     username: user_core_english_school
     password: core_english_schoolPW
     driver-class-name: com.mysql.cj.jdbc.Driver
