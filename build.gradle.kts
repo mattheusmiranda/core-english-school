@@ -6,30 +6,24 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
-allprojects {
-	group = "com.school"
-	version = "0.0.1-SNAPSHOT"
-
-	repositories {
-		mavenCentral()
-		maven("https://packages.confluent.io/maven/")
-	}
-}
-
 subprojects {
-	plugins.withType<JavaPlugin> {
-		extensions.configure<JavaPluginExtension> {
-			toolchain {
-				languageVersion.set(JavaLanguageVersion.of(21))
-			}
-		}
-	}
+    repositories {
+        mavenCentral()
+        maven {
+            url = uri("https://packages.confluent.io/maven")
+        }
+    }
 
-	tasks.withType<Test> {
-		useJUnitPlatform()
-	}
+    plugins.withType<JavaPlugin> {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(21))
+            }
+        }
+    }
 
-	repositories {
-		mavenCentral()
-	}
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
+

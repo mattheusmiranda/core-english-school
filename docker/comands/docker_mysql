@@ -1,3 +1,7 @@
+-- comando para subir cluster docker compartilhado com microservico
+docker-compose -f docker-compose.kafka.yml up -d
+docker network create kafka-network
+
 -- iniciar containers
 cd docker
 docker-compose up -d
@@ -10,8 +14,8 @@ use core_english_school;
 show tables;
 
 -- matar containers
-docker stop my-mysql
-docker rm my-mysql
+docker stop my-mysql-core-english-school
+docker rm my-mysql-core-english-school
 
 docker stop kafka
 docker rm kafka
@@ -21,3 +25,6 @@ docker rm zookeeper
 
 docker stop schema-registry
 docker rm schema-registry
+
+docker stop my-mysql-progress-tracker
+docker rm my-mysql-progress-tracker
