@@ -22,16 +22,18 @@ class LessonCompletedKafkaProducer(
 
     override fun publish(studentLessonProgressDomain: StudentLessonProgressDomain) {
         try {
+            MDC.put("topic", topic)
+            MDC.put("studentId", studentLessonProgressDomain.student.id.toString())
+
             val avroRecord = avroMapper.toStudentLessonProgressRecord(studentLessonProgressDomain)
             kafkaTemplate.send(topic, avroRecord.studentRecord.id.toString(), avroRecord)
 
-            logger.info(
-                "message=\"Posting message to topic $topic para studentId=${studentLessonProgressDomain.student.id}\""
-            )
+            logger.info("Posting message to topic")
         } catch (e: Exception) {
-            logger.error("message=\"Error publishing message to topic $topic for studentId=${studentLessonProgressDomain.student.id}\"", e)
+            logger.error("Error publishing message to topic", e)
         } finally {
             MDC.clear()
         }
     }
+
 }

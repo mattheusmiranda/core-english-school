@@ -7,7 +7,7 @@ cd docker
 docker-compose up -d
 
 -- entrar no container
-docker exec -it my-mysql bash
+docker exec -it my-mysql-core-english-school bash
 mysql -u root -p
 root
 use core_english_school;
@@ -28,3 +28,5 @@ docker rm schema-registry
 
 docker stop my-mysql-progress-tracker
 docker rm my-mysql-progress-tracker
+
+docker stop $(docker ps -q) && docker rm $(docker ps -aq)

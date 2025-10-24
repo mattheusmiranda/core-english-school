@@ -84,6 +84,11 @@ core-english-school/
 Obs: Caso hajá alguma duvida sobre comandos do docker, na pasta docker#comands tem alguns comandos utilizados durante o desenvolvimento que podem ser úteis.
 
 ---
+## APIs Úteis
+1. Atualizar progresso de aula
+   ```sh
+   http://localhost:8079/api/student-lesson-progress/lesson/1/student/1/24
+   ```
 
 ## 📊 Observabilidade
 - Métricas expostas via Micrometer no endpoint `/actuator/prometheus`.

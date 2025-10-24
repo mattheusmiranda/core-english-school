@@ -22,6 +22,9 @@ data class Course(
     @Column(name = "description")
     val description: String? = null,
 
+    @Column(name = "total_number_of_classes")
+    val totalNumberOfClasses: Int = 0,
+
     @Column(name = "created_at")
     val createdAt: LocalDate = LocalDate.now(),
 

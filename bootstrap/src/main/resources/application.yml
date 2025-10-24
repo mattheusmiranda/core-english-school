@@ -2,6 +2,8 @@ server:
   port: 8079
 
 spring:
+  profiles:
+    active: local
   datasource:
     url: jdbc:mysql://localhost:3308/core_english_school
     username: user_core_english_school
@@ -40,3 +42,4 @@ spring:
         specific.avro.reader: true
 topics:
   lesson-completed: lesson_completed
+  student-progress-updated: student_progress_updated

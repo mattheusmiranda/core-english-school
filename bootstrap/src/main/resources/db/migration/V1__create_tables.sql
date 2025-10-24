@@ -12,6 +12,7 @@ CREATE TABLE courses (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
     description TEXT,
+    total_number_of_classes INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -39,13 +40,15 @@ CREATE TABLE lessons (
 );
 
 -- Tabela para armazenar progresso do aluno em cada lição
-CREATE TABLE student_lesson_progress (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE student_lessons_progress (
+    id INT AUTO_INCREMENT,
     student_id INT NOT NULL,
     lesson_id INT NOT NULL,
     percentage_of_progress INT,
     completed_at TIMESTAMP NULL,
-    CONSTRAINT fk_student_lesson_progress FOREIGN KEY (student_id) REFERENCES students(id),
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_student_lesson (student_id, lesson_id), -- Added a UNIQUE constraint for the progress combination
+    CONSTRAINT fk_student_lessons_progress FOREIGN KEY (student_id) REFERENCES students(id),
     CONSTRAINT fk_lesson_progress FOREIGN KEY (lesson_id) REFERENCES lessons(id)
 );
 
@@ -58,4 +61,14 @@ CREATE TABLE student_progress (
     PRIMARY KEY (student_id, course_id),
     CONSTRAINT fk_student_progress FOREIGN KEY (student_id) REFERENCES students(id),
     CONSTRAINT fk_course_progress FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+-- Tabela para armazenar detables do progresso do aluno em um curso
+CREATE TABLE course_completion_details (
+    student_lesson_progress_id INT PRIMARY KEY,
+    total_classes INT NOT NULL,
+    completed_classes INT NOT NULL,
+    remaining_classes INT NOT NULL,
+    percentage_completed DOUBLE NOT NULL,
+    percentage_remaining DOUBLE NOT NULL
 );
